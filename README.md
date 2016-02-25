@@ -1,2 +1,0 @@
-# xdevs-lib
-xDEVS library.
