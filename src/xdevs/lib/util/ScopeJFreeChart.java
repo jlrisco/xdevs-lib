@@ -33,7 +33,7 @@ import org.jfree.ui.RefineryUtilities;
 
 /**
  *
- * @author José Luis Risco Martín <jlrisco@dacya.ucm.es>
+ * @author José Luis Risco Martín
  */
 public class ScopeJFreeChart extends JFrame {
 
