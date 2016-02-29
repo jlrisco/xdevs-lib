@@ -25,7 +25,7 @@ import xdevs.core.modeling.OutPort;
 
 /**
  *
- * @author jlrisco
+ * @author José Luis Risco Martín
  */
 public class Nand2 extends Atomic {
 
@@ -47,11 +47,11 @@ public class Nand2 extends Atomic {
     }
 
     public Nand2(String name) {
-        this(name, 0);
+        this(name, 132e-12);
     }
 
     public Nand2() {
-        super(Nand2.class.getName());
+        this(Nand2.class.getName());
     }
 
     @Override
@@ -70,18 +70,21 @@ public class Nand2 extends Atomic {
 
     @Override
     public void deltext(double e) {
-        Integer tempValueAtIn0 = iIn0.getSingleValue();
+        boolean activate = false;
+        
+        Integer tempValueAtIn0 = (iIn0.isEmpty())? null : iIn0.getSingleValue();
         if (tempValueAtIn0 != null && !tempValueAtIn0.equals(valueAtIn0)) {
             valueAtIn0 = tempValueAtIn0;
-            super.holdIn("active", delay);
+            activate = true;
         }
-        Integer tempValueAtIn1 = iIn1.getSingleValue();
+        Integer tempValueAtIn1 = (iIn1.isEmpty())? null : iIn1.getSingleValue();
         if (tempValueAtIn1 != null && !tempValueAtIn1.equals(valueAtIn1)) {
             valueAtIn1 = tempValueAtIn1;
-            super.holdIn("active", delay);
+            activate = true;
         }
-        if (super.phaseIs("active") && valueAtIn0 != null && valueAtIn1 != null) {
-            valueToOut = valueAtIn0 & valueAtIn1;
+        if (activate && valueAtIn0 != null && valueAtIn1 != null) {
+            valueToOut = ~(valueAtIn0 & valueAtIn1);
+            super.holdIn("active", delay);
         }
     }
 

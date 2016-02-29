@@ -22,33 +22,75 @@ package xdevs.lib.general.sources;
 import xdevs.lib.general.sinks.Console;
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
+import xdevs.core.modeling.InPort;
 import xdevs.core.modeling.OutPort;
 import xdevs.core.simulation.Coordinator;
 
 /**
+ * Generate square wave pulses at regular intervals. The Pulse Generator block
+ * generates square wave pulses at regular intervals. The block's waveform
+ * parameters, Amplitude, Pulse Width, Period, and Phase delay, determine the
+ * shape of the output waveform.
  *
- * @author jlrisco
+ * @author José L. Risco Martín
  */
 public class PulseGenerator extends Atomic {
 
-    public OutPort<Double> portOut = new OutPort<>("portOut");
-    protected double amplitude;
-    protected double pulseWidth;
+    public InPort<Object> iStop = new InPort<>("iStop");
+    public OutPort<Double> oVal = new OutPort<>("oVal");
+    /**
+     * The pulse amplitude. The default is 1.
+     */
+    protected double amplitude = 1;
+    /**
+     * The duration of the pulse period that the signal is on. Default is 0.5.
+     */
+    protected double pulseWidth = 0.5;
+    /**
+     * The pulse period specified in seconds. Default is 1.
+     */
     protected double period;
+    /**
+     * The delay before the pulse is generated specified in seconds. Default is
+     * 0.
+     */
     protected double phaseDelay;
 
+    /**
+     *
+     * @param name Name of the component.
+     * @param amplitude The pulse amplitude.
+     * @param pulseWidth The duration of the pulse period that the signal is on.
+     * @param period The pulse period specified in seconds.
+     * @param phaseDelay The delay before the pulse is generated specified in
+     * seconds.
+     */
     public PulseGenerator(String name, double amplitude, double pulseWidth, double period, double phaseDelay) {
-    	super(name);
-        super.addOutPort(portOut);
+        super(name);
+        super.addInPort(iStop);
+        super.addOutPort(oVal);
         this.amplitude = amplitude;
         this.pulseWidth = pulseWidth;
         this.period = period;
         this.phaseDelay = phaseDelay;
     }
-    
+
+    public PulseGenerator(String name) {
+        this(name, 1, 0.5, 1, 0);
+    }
+
+    public PulseGenerator() {
+        this(PulseGenerator.class.getName());
+    }
+
     @Override
     public void initialize() {
-        super.holdIn("delay", 0);    	
+        if (phaseDelay > 0) {
+            super.holdIn("delay", 0);
+        }
+        else {
+            super.holdIn("high", 0);
+        }
     }
 
     @Override
@@ -68,26 +110,29 @@ public class PulseGenerator extends Atomic {
 
     @Override
     public void deltext(double e) {
+        if (!iStop.isEmpty()) {
+            super.passivate();
+        }
     }
 
     @Override
     public void lambda() {
         if (super.phaseIs("delay")) {
-            portOut.addValue(0.0);
+            oVal.addValue(0.0);
         } else if (super.phaseIs("high")) {
-            portOut.addValue(amplitude);
+            oVal.addValue(amplitude);
         } else if (super.phaseIs("low")) {
-            portOut.addValue(0.0);
+            oVal.addValue(0.0);
         }
     }
 
     public static void main(String[] args) {
         Coupled pulseExample = new Coupled("pulseExample");
-        PulseGenerator pulse = new PulseGenerator("pulse",10, 3, 5, 5);
+        PulseGenerator pulse = new PulseGenerator("pulse", 10, 3, 5, 5);
         pulseExample.addComponent(pulse);
         Console console = new Console("console");
         pulseExample.addComponent(console);
-        pulseExample.addCoupling(pulse, pulse.portOut, console, console.iIn);
+        pulseExample.addCoupling(pulse, pulse.oVal, console, console.iIn);
         Coordinator coordinator = new Coordinator(pulseExample);
         coordinator.initialize();
         coordinator.simulate(30.0);

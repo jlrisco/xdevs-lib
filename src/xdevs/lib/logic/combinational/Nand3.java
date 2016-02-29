@@ -50,7 +50,7 @@ public class Nand3 extends Atomic {
     }
 
     public Nand3(String name) {
-        this(name, 0);
+        this(name, 192e-12);
     }
 
     public Nand3() {
@@ -73,20 +73,27 @@ public class Nand3 extends Atomic {
 
     @Override
     public void deltext(double e) {
+        boolean activate = false;
         // Primero procesamos los valores de las entradas.
-        Integer tempValueAtIn0 = iIn0.getSingleValue();
+        Integer tempValueAtIn0 = (iIn0.isEmpty())? null : iIn0.getSingleValue();
         if (tempValueAtIn0 != null && !tempValueAtIn0.equals(valueAtIn0)) {
             valueAtIn0 = tempValueAtIn0;
-            super.holdIn("active", delay);
+            activate = true;
         }
-        Integer tempValueAtIn1 = iIn1.getSingleValue();
+        Integer tempValueAtIn1 = (iIn1.isEmpty())? null : iIn1.getSingleValue();
         if (tempValueAtIn1 != null && !tempValueAtIn1.equals(valueAtIn1)) {
             valueAtIn1 = tempValueAtIn1;
-            super.holdIn("active", delay);
+            activate = true;
+        }
+        Integer tempValueAtIn2 = (iIn2.isEmpty())? null : iIn2.getSingleValue();
+        if (tempValueAtIn2 != null && !tempValueAtIn2.equals(valueAtIn2)) {
+            valueAtIn2 = tempValueAtIn2;
+            activate = true;
         }
 
-        if (super.phaseIs("active") && valueAtIn0 != null && valueAtIn1 != null) {
-            valueToOut = valueAtIn0 & valueAtIn1;
+        if (activate && valueAtIn0 != null && valueAtIn1 != null && valueAtIn2 != null) {
+            valueToOut = ~(valueAtIn0 & valueAtIn1 & valueAtIn2);
+            super.holdIn("active", delay);
         }
     }
 
