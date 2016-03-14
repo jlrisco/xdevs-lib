@@ -22,25 +22,27 @@ package xdevs.lib.general.sinks;
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
 import xdevs.core.modeling.InPort;
-import xdevs.core.simulation.realtime.RTCentralCoordinator;
+import xdevs.core.simulation.Coordinator;
 import xdevs.lib.logic.sequential.Clock;
-import xdevs.lib.util.ScopeView;
+import xdevs.lib.util.ScopeMultiView;
 
 /**
  *
- * @author José Luis Risco Martín
+ * @author José Luis Risco Martín <jlrisco at ucm.es>
  */
-public class Scope extends Atomic {
+public class ScopeMulti extends Atomic {
 
-    public InPort<Number> iIn = new InPort<>("iIn");
-    protected double time;
-    protected ScopeView chart;
-
-    public Scope(String yTitle) {
-        super("Scope");
-        super.addInPort(iIn);
-        chart = new ScopeView("Scope", "Scope", "time", yTitle);
-        this.time = 0.0;
+    protected double time = 0.0;
+    protected ScopeMultiView chart = null;
+    
+    public ScopeMulti(String yTitle, int numInPorts) {
+        super(yTitle);
+        chart = new ScopeMultiView("Scope", "Scope", "time", yTitle);
+        for(int i=0; i<numInPorts; ++i) {
+            InPort<Number> inPort = new InPort<>("i" + i);
+            super.addInPort(inPort);
+            chart.addSerie(inPort.getName());
+        }
     }
 
     @Override
@@ -61,23 +63,34 @@ public class Scope extends Atomic {
     @Override
     public void deltext(double e) {
         time += e;
-        if (!iIn.isEmpty()) {
-            chart.addPoint(time, iIn.getSingleValue().doubleValue());
+        for(InPort<?> inPort : inPorts) {
+            if(!inPort.isEmpty()) {
+                chart.addPoint(inPort.getName(), time, (Number)inPort.getSingleValue());
+            }
         }
     }
 
     @Override
     public void lambda() {
     }
-    
+
     public static void main(String[] args) {
         Coupled coupled = new Coupled("Test");
-        Clock clock = new Clock("CLK");
-        coupled.addComponent(clock);
-        Scope scope = new Scope("CLOCK");
+        Clock clock1 = new Clock("CLK1", 1, 0);
+        coupled.addComponent(clock1);
+        Clock clock2 = new Clock("CLK2", 1.5, 0);
+        coupled.addComponent(clock2);
+        Clock clock3 = new Clock("CLK3", 1.75, 0);
+        coupled.addComponent(clock3);
+        
+        ScopeMulti scope = new ScopeMulti("CLOCK", 3);
         coupled.addComponent(scope);
-        coupled.addCoupling(clock.oClk, scope.iIn);
-        RTCentralCoordinator coordinator = new RTCentralCoordinator(coupled);
+        
+        coupled.addCoupling(clock1, 0, scope, 0);
+        coupled.addCoupling(clock2, 0, scope, 1);
+        coupled.addCoupling(clock3, 0, scope, 2);
+        
+        Coordinator coordinator = new Coordinator(coupled);
         coordinator.initialize();
         coordinator.simulate(20.0);
         coordinator.exit();

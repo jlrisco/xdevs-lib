@@ -35,12 +35,12 @@ import org.jfree.ui.RefineryUtilities;
  *
  * @author José Luis Risco Martín
  */
-public class ScopeJFreeChart extends JFrame {
+public class ScopeView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	protected XYSeries serie;
 
-  public ScopeJFreeChart(String windowsTitle, String title, String xTitle, String yTitle) {
+  public ScopeView(String windowsTitle, String title, String xTitle, String yTitle) {
     super(windowsTitle);
     XYSeriesCollection dataSet = new XYSeriesCollection();
     serie = new XYSeries(yTitle);
