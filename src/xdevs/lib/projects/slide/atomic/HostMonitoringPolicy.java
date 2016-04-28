@@ -17,39 +17,35 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.general.sinks;
-
-import java.util.Collection;
+package xdevs.lib.projects.slide.atomic;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.OutPort;
 
 /**
  *
- * @author José Luis Risco Martín
+ * @author José Luis Risco Martín <jlrisco at ucm.es>
  */
-public class Console extends Atomic {
-
-    //private static final Logger logger = Logger.getLogger(Console.class.getName());
-
-    public InPort<Object> iIn = new InPort<>("iIn");
-    // Parameters
-    protected double time;
-
-    /**
-     * Console atomic model.
-     *
-     * @param name Name of the atomic model
-     */
-    public Console(String name) {
-    	super(name);
-        super.addInPort(iIn);
+public class HostMonitoringPolicy extends Atomic {
+    public OutPort<Object> oOut = new OutPort<>("out");
+    
+    protected double period;
+    protected double delay;
+    
+    public HostMonitoringPolicy(double period, double delay) {
+        super();
+        super.addOutPort(oOut);
+        this.period = period;
+        this.delay = delay;
+    }
+    
+    public HostMonitoringPolicy(double period) {
+        this(period, 0.0);
     }
     
     @Override
     public void initialize() {
-        this.time = 0.0;
-    	super.passivate();
+        super.holdIn("active", delay);
     }
     
     @Override
@@ -58,25 +54,15 @@ public class Console extends Atomic {
     
     @Override
     public void deltint() {
-        super.passivate();
+        super.holdIn("active", period);
     }
-
+    
     @Override
-    public void deltext(double e) {
-        time += e;
-        if (iIn.isEmpty()) {
-            return;
-        }
-        StringBuilder message = new StringBuilder();
-        message.append(name).append("::").append(time);
-        Collection<Object> values = iIn.getValues();
-        for (Object value : values) {
-            message.append(":").append(value.toString());
-        }
-        System.out.println(message.toString());
+    public void deltext(double e) {        
     }
-
+    
     @Override
     public void lambda() {
+        oOut.addValue(new Double(1));
     }
 }
