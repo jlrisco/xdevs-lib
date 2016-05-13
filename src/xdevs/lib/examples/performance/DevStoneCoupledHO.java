@@ -17,42 +17,53 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.performance;
+package xdevs.lib.examples.performance;
 
-import java.util.logging.Logger;
+import xdevs.core.modeling.Port;
 
 /**
- * Coupled model to study the performance LI DEVStone models
+ * Coupled model to study the performance HO DEVStone models
  *
  * @author José Luis Risco Martín
  */
-public class DevStoneCoupledLI extends DevStoneCoupled {
+public class DevStoneCoupledHO extends DevStoneCoupled {
 
-    private static final Logger logger = Logger.getLogger(DevStoneCoupledLI.class.getName());
+    public Port<Integer> iInAux = new Port<>("inAux");
+    public Port<Integer> oOutAux = new Port<>("outAux");
 
-    public DevStoneCoupledLI(String prefix, int width, int depth, DevStoneProperties properties) {
+    public DevStoneCoupledHO(String prefix, int width, int depth, DevStoneProperties properties) {
         super(prefix + (depth - 1));
+        super.addInPort(iInAux);
+        super.addOutPort(oOutAux);
         if (depth == 1) {
             DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, properties);
             super.addComponent(atomic);
             super.addCoupling(iIn, atomic.iIn);
             super.addCoupling(atomic.oOut, oOut);
         } else {
-            DevStoneCoupledLI coupled = new DevStoneCoupledLI(prefix, width, depth - 1, properties);
+            DevStoneCoupledHO coupled = new DevStoneCoupledHO(prefix, width, depth - 1, properties);
             super.addComponent(coupled);
             super.addCoupling(iIn, coupled.iIn);
+            super.addCoupling(iIn, coupled.iInAux);
             super.addCoupling(coupled.oOut, oOut);
+            DevStoneAtomic atomicPrev = null;
             for (int i = 0; i < (width - 1); ++i) {
                 DevStoneAtomic atomic = new DevStoneAtomic("A" + (i + 1) + "_" + name, properties);
                 super.addComponent(atomic);
-                super.addCoupling(iIn, atomic.iIn);
+                super.addCoupling(iInAux, atomic.iIn);
+                super.addCoupling(atomic.oOut, oOutAux);
+                if (atomicPrev != null) {
+                    super.addCoupling(atomicPrev.oOut, atomic.iIn);
+                }
+                atomicPrev = atomic;
             }
         }
     }
 
     @Override
     public int getNumDeltExts(int maxEvents, int width, int depth) {
-        return maxEvents * ((width - 1) * (depth - 1) + 1);
+        return maxEvents * (((width * width - width) / 2) * (depth - 1) + 1);
+
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -45,7 +45,7 @@ public class StimulusFile extends Atomic {
     }
 
     private static final Logger logger = Logger.getLogger(StimulusFile.class.getName());
-    protected HashMap<String, OutPort> myOutPorts = new HashMap<>();
+    protected HashMap<String, Port> myOutPorts = new HashMap<>();
     protected HashMap<String, Class> myValueTypes = new HashMap<>();
 
     protected BufferedReader stimulusFile;
@@ -65,7 +65,7 @@ public class StimulusFile extends Atomic {
                 } else if (!portInfo.startsWith("#")) {
                     String[] portNameAndType = portInfo.split(":");
                     Class valueType = Class.forName(portNameAndType[1]);
-                    OutPort port = new OutPort(portNameAndType[0]);
+                    Port port = new Port(portNameAndType[0]);
                     super.addOutPort(port);
                     myOutPorts.put(portNameAndType[0], port);
                     myValueTypes.put(portNameAndType[0], valueType);
@@ -133,8 +133,8 @@ public class StimulusFile extends Atomic {
         }
     }
 
-    public OutPort<Number> getPortByName(String portName) {
-        OutPort<Number> port = myOutPorts.get(portName);
+    public Port<Number> getPortByName(String portName) {
+        Port<Number> port = myOutPorts.get(portName);
         return port;
     }
 

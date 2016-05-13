@@ -17,7 +17,7 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.performance;
+package xdevs.lib.examples.performance;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

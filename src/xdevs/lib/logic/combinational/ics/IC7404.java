@@ -20,8 +20,7 @@
 package xdevs.lib.logic.combinational.ics;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -29,21 +28,21 @@ import xdevs.core.modeling.OutPort;
  */
 public class IC7404 extends Atomic {
 
-    public InPort<Integer> iPin1 = new InPort<>("pin1");
-    public InPort<Integer> iPin3 = new InPort<>("pin3");
-    public InPort<Integer> iPin5 = new InPort<>("pin5");
-    public InPort<Integer> iPin7 = new InPort<>("pin7");
-    public InPort<Integer> iPin9 = new InPort<>("pin9");
-    public InPort<Integer> iPin11 = new InPort<>("pin11");
-    public InPort<Integer> iPin13 = new InPort<>("pin13");
-    public InPort<Integer> iPin14 = new InPort<>("pin14");
+    public Port<Integer> iPin1 = new Port<>("pin1");
+    public Port<Integer> iPin3 = new Port<>("pin3");
+    public Port<Integer> iPin5 = new Port<>("pin5");
+    public Port<Integer> iPin7 = new Port<>("pin7");
+    public Port<Integer> iPin9 = new Port<>("pin9");
+    public Port<Integer> iPin11 = new Port<>("pin11");
+    public Port<Integer> iPin13 = new Port<>("pin13");
+    public Port<Integer> iPin14 = new Port<>("pin14");
 
-    public OutPort<Integer> oPin2 = new OutPort<>("pin2");
-    public OutPort<Integer> oPin4 = new OutPort<>("pin4");
-    public OutPort<Integer> oPin6 = new OutPort<>("pin6");
-    public OutPort<Integer> oPin8 = new OutPort<>("pin8");
-    public OutPort<Integer> oPin10 = new OutPort<>("pin10");
-    public OutPort<Integer> oPin12 = new OutPort<>("pin12");
+    public Port<Integer> oPin2 = new Port<>("pin2");
+    public Port<Integer> oPin4 = new Port<>("pin4");
+    public Port<Integer> oPin6 = new Port<>("pin6");
+    public Port<Integer> oPin8 = new Port<>("pin8");
+    public Port<Integer> oPin10 = new Port<>("pin10");
+    public Port<Integer> oPin12 = new Port<>("pin12");
 
     protected Integer valueAtPin1 = null;
     protected Integer valueAtPin3 = null;

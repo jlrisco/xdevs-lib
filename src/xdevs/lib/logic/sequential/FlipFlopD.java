@@ -20,8 +20,7 @@
 package xdevs.lib.logic.sequential;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -29,9 +28,9 @@ import xdevs.core.modeling.OutPort;
  */
 public class FlipFlopD extends Atomic {
 
-    public InPort<Integer> iClk = new InPort<>("Clk");
-    public InPort<Integer> iD = new InPort<>("D");
-    public OutPort<Integer> oQ = new OutPort<>("Q");
+    public Port<Integer> iClk = new Port<>("Clk");
+    public Port<Integer> iD = new Port<>("D");
+    public Port<Integer> oQ = new Port<>("Q");
 
     protected double delay;
     protected Integer valueAtClk = null;

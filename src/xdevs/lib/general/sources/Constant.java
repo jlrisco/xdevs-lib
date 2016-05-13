@@ -20,7 +20,7 @@
 package xdevs.lib.general.sources;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -28,7 +28,7 @@ import xdevs.core.modeling.OutPort;
   */
 public class Constant<E extends Number> extends Atomic {
 
-    public OutPort<E> oOut = new OutPort<>("out");
+    public Port<E> oOut = new Port<>("out");
 
     protected E valueToOut;
     protected double stepTime;

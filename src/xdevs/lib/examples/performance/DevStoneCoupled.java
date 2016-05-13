@@ -17,13 +17,12 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.performance;
+package xdevs.lib.examples.performance;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 import xdevs.core.util.DevsLogger;
 
@@ -36,13 +35,13 @@ public abstract class DevStoneCoupled extends Coupled {
 
     private static final Logger logger = Logger.getLogger(DevStoneCoupled.class.getName());
 
-    public InPort<Integer> iIn = new InPort<>("in");
-    public OutPort<Integer> oOut = new OutPort<>("out");
+    public Port<Integer> iIn = new Port<>("in");
+    public Port<Integer> oOut = new Port<>("out");
 
     public DevStoneCoupled(String name) {
         super(name);
-        addInPort(iIn);
-        addOutPort(oOut);
+        super.addInPort(iIn);
+        super.addOutPort(oOut);
     }
 
     public abstract int getNumDeltExts(int maxEvents, int width, int depth);

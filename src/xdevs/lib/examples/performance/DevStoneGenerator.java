@@ -17,10 +17,10 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.performance;
+package xdevs.lib.examples.performance;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  * Events generator for the DEVStone benchmark
@@ -29,7 +29,7 @@ import xdevs.core.modeling.OutPort;
  */
 public class DevStoneGenerator extends Atomic {
 
-    public OutPort<Integer> oOut = new OutPort<>("out");
+    public Port<Integer> oOut = new Port<>("out");
     protected double preparationTime;
     protected double period;
     protected int counter = 1;

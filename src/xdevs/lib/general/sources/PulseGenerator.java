@@ -22,8 +22,7 @@ package xdevs.lib.general.sources;
 import xdevs.lib.general.sinks.Console;
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 
 /**
@@ -36,8 +35,8 @@ import xdevs.core.simulation.Coordinator;
  */
 public class PulseGenerator extends Atomic {
 
-    public InPort<Object> iStop = new InPort<>("iStop");
-    public OutPort<Double> oVal = new OutPort<>("oVal");
+    public Port<Object> iStop = new Port<>("iStop");
+    public Port<Double> oVal = new Port<>("oVal");
     /**
      * The pulse amplitude. The default is 1.
      */

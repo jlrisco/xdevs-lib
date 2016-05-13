@@ -21,7 +21,7 @@ package xdevs.lib.general.sinks;
 
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.realtime.RTCentralCoordinator;
 import xdevs.lib.logic.sequential.Clock;
 import xdevs.lib.util.ScopeView;
@@ -32,7 +32,7 @@ import xdevs.lib.util.ScopeView;
  */
 public class Scope extends Atomic {
 
-    public InPort<Number> iIn = new InPort<>("iIn");
+    public Port<Number> iIn = new Port<>("iIn");
     protected double time;
     protected ScopeView chart;
 

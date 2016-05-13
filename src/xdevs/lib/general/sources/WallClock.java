@@ -20,8 +20,7 @@
 package xdevs.lib.general.sources;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -29,8 +28,8 @@ import xdevs.core.modeling.OutPort;
  */
 public class WallClock extends Atomic {
 
-    public InPort<Object> iStop = new InPort<>("iStop");
-    public OutPort<Double> oClk = new OutPort<>("oClk");
+    public Port<Object> iStop = new Port<>("iStop");
+    public Port<Double> oClk = new Port<>("oClk");
 
     protected double period;
     protected double currentTime = 0.0;   // Output of the function

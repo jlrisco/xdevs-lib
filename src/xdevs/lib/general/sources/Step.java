@@ -22,7 +22,7 @@ package xdevs.lib.general.sources;
 import xdevs.lib.general.sinks.Console;
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 
 /**
@@ -31,7 +31,7 @@ import xdevs.core.simulation.Coordinator;
  */
 public class Step extends Atomic {
 
-    public OutPort<Double> portOut = new OutPort<>("portOut");
+    public Port<Double> portOut = new Port<>("portOut");
     protected double initialValue;
     protected double stepTime;
     protected double finalValue;

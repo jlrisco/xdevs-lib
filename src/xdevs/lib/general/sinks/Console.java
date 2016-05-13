@@ -22,7 +22,7 @@ package xdevs.lib.general.sinks;
 import java.util.Collection;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -32,7 +32,7 @@ public class Console extends Atomic {
 
     //private static final Logger logger = Logger.getLogger(Console.class.getName());
 
-    public InPort<Object> iIn = new InPort<>("iIn");
+    public Port<Object> iIn = new Port<>("iIn");
     // Parameters
     protected double time;
 

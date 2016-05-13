@@ -17,10 +17,10 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.performance;
+package xdevs.lib.examples.performance;
 
 import java.util.ArrayList;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.Port;
 
 /**
  * Coupled model to study the performance HO DEVStone models
@@ -29,7 +29,7 @@ import xdevs.core.modeling.InPort;
  */
 public class DevStoneCoupledHOmod extends DevStoneCoupled {
 
-    public InPort<Integer> iInAux = new InPort<>("inAux");
+    public Port<Integer> iInAux = new Port<>("inAux");
 
     public DevStoneCoupledHOmod(String prefix, int width, int depth, DevStoneProperties properties) {
         super(prefix + (depth - 1));

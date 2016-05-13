@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.logging.Logger;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -38,7 +38,7 @@ public class Disk extends Atomic {
 
     private static final Logger logger = Logger.getLogger(Disk.class.getName());
 
-    public InPort<Object> iIn = new InPort<>("iIn");
+    public Port<Object> iIn = new Port<>("iIn");
     // Parameters
     protected Writer file;
     protected double time;

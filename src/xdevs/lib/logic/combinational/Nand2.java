@@ -20,8 +20,7 @@
 package xdevs.lib.logic.combinational;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -29,9 +28,9 @@ import xdevs.core.modeling.OutPort;
  */
 public class Nand2 extends Atomic {
 
-    public InPort<Integer> iIn0 = new InPort<>("In0");
-    public InPort<Integer> iIn1 = new InPort<>("In1");
-    public OutPort<Integer> oOut = new OutPort<>("Out");
+    public Port<Integer> iIn0 = new Port<>("In0");
+    public Port<Integer> iIn1 = new Port<>("In1");
+    public Port<Integer> oOut = new Port<>("Out");
 
     protected double delay;
     protected Integer valueToOut = null;

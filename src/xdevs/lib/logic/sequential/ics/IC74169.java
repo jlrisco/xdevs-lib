@@ -20,8 +20,7 @@
 package xdevs.lib.logic.sequential.ics;
 
 import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 
 /**
  *
@@ -29,22 +28,22 @@ import xdevs.core.modeling.OutPort;
  */
 public class IC74169 extends Atomic {
 
-    public InPort<Integer> iPin1 = new InPort<>("pin1");
-    public InPort<Integer> iPin2 = new InPort<>("pin2");
-    public InPort<Integer> iPin3 = new InPort<>("pin3");
-    public InPort<Integer> iPin4 = new InPort<>("pin4");
-    public InPort<Integer> iPin5 = new InPort<>("pin5");
-    public InPort<Integer> iPin6 = new InPort<>("pin6");
-    public InPort<Integer> iPin7 = new InPort<>("pin7");
-    public InPort<Integer> iPin8 = new InPort<>("pin8");
-    public InPort<Integer> iPin9 = new InPort<>("pin9");
-    public InPort<Integer> iPin10 = new InPort<>("pin10");
-    public OutPort<Integer> oPin11 = new OutPort<>("pin11");
-    public OutPort<Integer> oPin12 = new OutPort<>("pin12");
-    public OutPort<Integer> oPin13 = new OutPort<>("pin13");
-    public OutPort<Integer> oPin14 = new OutPort<>("pin14");
-    public OutPort<Integer> oPin15 = new OutPort<>("pin15");
-    public InPort<Integer> iPin16 = new InPort<>("pin16");
+    public Port<Integer> iPin1 = new Port<>("pin1");
+    public Port<Integer> iPin2 = new Port<>("pin2");
+    public Port<Integer> iPin3 = new Port<>("pin3");
+    public Port<Integer> iPin4 = new Port<>("pin4");
+    public Port<Integer> iPin5 = new Port<>("pin5");
+    public Port<Integer> iPin6 = new Port<>("pin6");
+    public Port<Integer> iPin7 = new Port<>("pin7");
+    public Port<Integer> iPin8 = new Port<>("pin8");
+    public Port<Integer> iPin9 = new Port<>("pin9");
+    public Port<Integer> iPin10 = new Port<>("pin10");
+    public Port<Integer> oPin11 = new Port<>("pin11");
+    public Port<Integer> oPin12 = new Port<>("pin12");
+    public Port<Integer> oPin13 = new Port<>("pin13");
+    public Port<Integer> oPin14 = new Port<>("pin14");
+    public Port<Integer> oPin15 = new Port<>("pin15");
+    public Port<Integer> iPin16 = new Port<>("pin16");
 
     protected Integer valueAtPin1 = null;
     protected Integer valueAtPin2 = null;

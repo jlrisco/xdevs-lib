@@ -21,7 +21,7 @@ package xdevs.lib.general.sinks;
 
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.InPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 import xdevs.lib.logic.sequential.Clock;
 import xdevs.lib.util.ScopeMultiView;
@@ -39,7 +39,7 @@ public class ScopeMulti extends Atomic {
         super(yTitle);
         chart = new ScopeMultiView("Scope", "Scope", "time", yTitle);
         for(int i=0; i<numInPorts; ++i) {
-            InPort<Number> inPort = new InPort<>("i" + i);
+            Port<Number> inPort = new Port<>("i" + i);
             super.addInPort(inPort);
             chart.addSerie(inPort.getName());
         }
@@ -63,7 +63,7 @@ public class ScopeMulti extends Atomic {
     @Override
     public void deltext(double e) {
         time += e;
-        for(InPort<?> inPort : inPorts) {
+        for(Port<?> inPort : inPorts) {
             if(!inPort.isEmpty()) {
                 chart.addPoint(inPort.getName(), time, (Number)inPort.getSingleValue());
             }

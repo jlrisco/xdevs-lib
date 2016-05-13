@@ -22,8 +22,7 @@ package xdevs.lib.logic.sequential;
 import xdevs.lib.general.sinks.Console;
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.InPort;
-import xdevs.core.modeling.OutPort;
+import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 
 /**
@@ -38,8 +37,8 @@ import xdevs.core.simulation.Coordinator;
  */
 public class Clock extends Atomic {
 
-    public InPort<Object> iStop = new InPort<>("iStop");
-    public OutPort<Integer> oClk = new OutPort<>("oClk");
+    public Port<Object> iStop = new Port<>("iStop");
+    public Port<Integer> oClk = new Port<>("oClk");
     protected double period;
     protected double semiPeriod;
     protected int nextValue;
