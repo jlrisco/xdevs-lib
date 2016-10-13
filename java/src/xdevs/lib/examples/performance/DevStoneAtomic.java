@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 import xdevs.lib.util.Dhrystone;
-import xdevs.core.modeling.Atomic;
 
 /**
  * Atomic model to study the performance using the DEVStone benchmark
