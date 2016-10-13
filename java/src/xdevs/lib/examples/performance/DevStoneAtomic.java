@@ -22,6 +22,8 @@ package xdevs.lib.examples.performance;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
+import xdevs.core.modeling.Atomic;
+import xdevs.core.modeling.Port;
 import xdevs.lib.util.Dhrystone;
 
 /**
