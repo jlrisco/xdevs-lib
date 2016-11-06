@@ -1,10 +1,10 @@
-package xdevs.lib.tfgs.c1516.distributed.src.ex1;
+package xdevs.lib.tfgs.c1516.distributed.sockets.example;
 
 import java.util.ArrayList;
 
-import xdevs.lib.tfgs.c1516.distributed.src.xdevs.core.simulation.distributed.ClientHandler;
-import xdevs.lib.tfgs.c1516.distributed.src.xdevs.core.simulation.distributed.CoordinatorDistributed;
-import xdevs.lib.tfgs.c1516.distributed.src.xdevs.core.simulation.distributed.Server;
+import xdevs.lib.tfgs.c1516.distributed.sockets.ClientHandler;
+import xdevs.lib.tfgs.c1516.distributed.sockets.CoordinatorDistributed;
+import xdevs.lib.tfgs.c1516.distributed.sockets.Server;
 
 public class Main {
 

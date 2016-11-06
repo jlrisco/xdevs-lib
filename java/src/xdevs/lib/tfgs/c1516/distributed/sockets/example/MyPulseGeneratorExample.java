@@ -1,4 +1,4 @@
-package xdevs.lib.tfgs.c1516.distributed.src.ex1;
+package xdevs.lib.tfgs.c1516.distributed.sockets.example;
 
 import xdevs.core.modeling.Coupled;
 

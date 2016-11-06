@@ -1,6 +1,6 @@
-package xdevs.lib.tfgs.c1516.distributed.src.ex1;
+package xdevs.lib.tfgs.c1516.distributed.sockets.example;
 
-import xdevs.lib.tfgs.c1516.distributed.src.xdevs.core.simulation.distributed.Client;
+import xdevs.lib.tfgs.c1516.distributed.sockets.Client;
 
 public class MainClient {
 

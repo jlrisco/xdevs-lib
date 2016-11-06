@@ -26,7 +26,7 @@
  * @author Guillermo Llorente de la Cita
  * @author Luis L�zaro-Carrasco Hern�ndez
  */
-package xdevs.lib.tfgs.c1516.distributed.src.xdevs.core.simulation.distributed;
+package xdevs.lib.tfgs.c1516.distributed.sockets;
 
 public enum Orders {
 	runDelta,runLambda,
