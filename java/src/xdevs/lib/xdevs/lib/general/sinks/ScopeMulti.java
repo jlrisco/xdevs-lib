@@ -17,13 +17,13 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.general.sinks;
+package xdevs.lib.xdevs.lib.general.sinks;
 
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Coupled;
 import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
-import xdevs.lib.logic.sequential.Clock;
+import xdevs.lib.xdevs.lib.logic.sequential.Clock;
 import xdevs.lib.util.ScopeMultiView;
 
 /**

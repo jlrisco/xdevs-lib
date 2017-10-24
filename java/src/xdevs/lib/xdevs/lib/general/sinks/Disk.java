@@ -17,7 +17,7 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.general.sinks;
+package xdevs.lib.xdevs.lib.general.sinks;
 
 import java.io.BufferedWriter;
 import java.io.File;

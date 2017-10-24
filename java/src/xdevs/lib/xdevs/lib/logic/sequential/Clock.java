@@ -17,7 +17,7 @@
  * Contributors:
  *  - José Luis Risco Martín
  */
-package xdevs.lib.logic.sequential;
+package xdevs.lib.xdevs.lib.logic.sequential;
 
 import xdevs.lib.general.sinks.Console;
 import xdevs.core.modeling.Atomic;

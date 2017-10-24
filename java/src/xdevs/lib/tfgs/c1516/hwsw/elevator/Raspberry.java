@@ -8,7 +8,6 @@ package xdevs.lib.tfgs.c1516.hwsw.elevator;
 import java.io.File;
 import java.util.logging.Level;
 import xdevs.core.modeling.Coupled;
-import xdevs.core.simulation.Coordinator;
 import xdevs.core.simulation.realtime.RTCentralCoordinator;
 import xdevs.core.util.DevsLogger;
 import xdevs.lib.general.sinks.Console;
@@ -17,7 +16,7 @@ import xdevs.lib.general.sources.StimulusFile;
 import xdevs.lib.logic.combinational.ics.IC7404;
 import xdevs.lib.logic.combinational.ics.IC7410;
 import xdevs.lib.logic.combinational.ics.IC74283;
-import xdevs.lib.logic.sequential.Clock;
+import xdevs.lib.xdevs.lib.logic.sequential.Clock;
 import xdevs.lib.logic.sequential.ics.IC74169;
 
 /**

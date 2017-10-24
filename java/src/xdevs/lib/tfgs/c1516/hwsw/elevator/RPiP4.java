@@ -24,7 +24,7 @@ import xdevs.core.simulation.realtime.RTCentralCoordinator;
 import xdevs.core.util.DevsLogger;
 import xdevs.lib.general.sinks.Console;
 import xdevs.lib.general.sources.StimulusFile;
-import xdevs.lib.logic.sequential.Clock;
+import xdevs.lib.xdevs.lib.logic.sequential.Clock;
 
 /**
  * 
