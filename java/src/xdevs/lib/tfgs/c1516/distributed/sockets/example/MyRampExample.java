@@ -15,7 +15,7 @@ public class MyRampExample extends Coupled {
 	    super.addComponent(ramp);    
 	    MyCsvConsole scope = new MyCsvConsole("CSV");
 	    super.addComponent(scope);
-	    super.addCoupling(ramp, ramp.oOut, scope, scope.iIn);
+	    super.addCoupling(ramp.oOut, scope.iIn);
 	  }
 	  
 	  public static void main(String[] args) {

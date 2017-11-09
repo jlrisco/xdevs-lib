@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package xdevs.lib.util;
 
 import xdevs.core.modeling.Atomic;
 import xdevs.core.modeling.Port;

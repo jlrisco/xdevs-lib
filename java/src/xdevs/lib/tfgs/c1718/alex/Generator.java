@@ -22,14 +22,15 @@ public class Generator extends Atomic {
     
 	@Override
 	public void initialize() {
+		super.passivate();
 		jobs = 1;
 	}
 
 	@Override
 	public void deltext(double e) {
-		if(!iStart.isEmpty() && iStart.getSingleValue())
+		if(phaseIs(Constants.PHASE_PASSIVE) && !iStart.isEmpty() && iStart.getSingleValue())
 			super.activate();
-		else if(!iStop.isEmpty() && iStop.getSingleValue())
+		else if(phaseIs(Constants.PHASE_ACTIVE) && !iStop.isEmpty() && iStop.getSingleValue())
 			super.passivate();
 	}
 	

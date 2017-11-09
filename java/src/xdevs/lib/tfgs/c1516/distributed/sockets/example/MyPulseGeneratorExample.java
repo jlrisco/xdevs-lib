@@ -15,6 +15,6 @@ public class MyPulseGeneratorExample extends Coupled {
         super.addComponent(pulse);
         MyCsvConsole scope = new MyCsvConsole("CSV");
         super.addComponent(scope);
-        super.addCoupling(pulse, pulse.oOut, scope, scope.iIn);
+        super.addCoupling(pulse.oOut, scope.iIn);
     }
 }

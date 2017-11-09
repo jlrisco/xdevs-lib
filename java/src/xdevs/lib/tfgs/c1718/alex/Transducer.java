@@ -22,7 +22,6 @@ public class Transducer extends Atomic {
 	private double clock;
 	private double totalTa;
 	
-	
 	public Transducer(String name, double observationTime){
 		super(name);
 		super.addInPort(iArrived);
@@ -48,7 +47,7 @@ public class Transducer extends Atomic {
 				arrived++;
 				int job = iArrived.getSingleValue();
 				jobs.put(job,clock);
-				LOGGER.fine("Start job" + job + " @ t = " + clock);
+				LOGGER.fine("Start job " + job + " @ t = " + clock);
 			}
 			if(!iSolved.isEmpty()){
 				solved++;

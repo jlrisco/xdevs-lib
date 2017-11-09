@@ -118,7 +118,7 @@ public class Clock extends Atomic {
         clockExample.addComponent(clock);
         Console console = new Console("console");
         clockExample.addComponent(console);
-        clockExample.addCoupling(clock, clock.oClk, console, console.iIn);
+        clockExample.addCoupling(clock.oClk, console.iIn);
         Coordinator coordinator = new Coordinator(clockExample);
         coordinator.initialize();
         coordinator.simulate(30.0);
