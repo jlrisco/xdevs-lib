@@ -81,7 +81,7 @@ public class Step extends Atomic {
         stepExample.addComponent(step);
         Console console = new Console("console");
         stepExample.addComponent(console);
-        stepExample.addCoupling(step, step.portOut, console, console.iIn);
+        stepExample.addCoupling(step.portOut, console.iIn);
         Coordinator coordinator = new Coordinator(stepExample);
         coordinator.initialize();
         coordinator.simulate(30.0);

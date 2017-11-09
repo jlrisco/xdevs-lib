@@ -80,7 +80,7 @@ public class Ramp extends Atomic {
         example.addComponent(ramp);
         Console console = new Console("console");
         example.addComponent(console);
-        example.addCoupling(ramp, ramp.portOut, console, console.iIn);
+        example.addCoupling(ramp.portOut, console.iIn);
         Coordinator coordinator = new Coordinator(example);
         coordinator.initialize();
         coordinator.simulate(30.0);

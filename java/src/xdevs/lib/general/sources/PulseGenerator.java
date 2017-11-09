@@ -131,7 +131,7 @@ public class PulseGenerator extends Atomic {
         pulseExample.addComponent(pulse);
         Console console = new Console("console");
         pulseExample.addComponent(console);
-        pulseExample.addCoupling(pulse, pulse.oVal, console, console.iIn);
+        pulseExample.addCoupling(pulse.oVal, console.iIn);
         Coordinator coordinator = new Coordinator(pulseExample);
         coordinator.initialize();
         coordinator.simulate(30.0);

@@ -81,7 +81,7 @@ public class QRamp extends Atomic {
         example.addComponent(qramp);
         Console console = new Console("console");
         example.addComponent(console);
-        example.addCoupling(qramp, qramp.portOut, console, console.iIn);
+        example.addCoupling(qramp.portOut, console.iIn);
         Coordinator coordinator = new Coordinator(example);
         coordinator.initialize();
         coordinator.simulate(30.0);
