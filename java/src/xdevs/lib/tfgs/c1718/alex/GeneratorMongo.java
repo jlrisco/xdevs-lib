@@ -1,18 +1,16 @@
 package xdevs.lib.tfgs.c1718.alex;
 
-import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.Port;
 import xdevs.core.util.Constants;
 
-public class Generator extends Atomic {
+public class GeneratorMongo extends AtomicMongo {
 	
-	protected Port<Boolean> iStart = new Port<>("iStart");
-    protected Port<Boolean> iStop = new Port<>("iStop");
-    protected Port<Integer> oOut = new Port<>("oOut");
+	protected PortMongo<Boolean> iStart = new PortMongo<>("iStart");
+    protected PortMongo<Boolean> iStop = new PortMongo<>("iStop");
+    protected PortMongo<Integer> oOut = new PortMongo<>("oOut");
     private int jobs;
     private double period;
     
-    public Generator(String name, double period){
+    public GeneratorMongo(String name, double period){
     	super(name);
     	super.addInPort(iStart);
     	super.addInPort(iStop);

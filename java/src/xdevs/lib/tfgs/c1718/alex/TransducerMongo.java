@@ -3,17 +3,15 @@ package xdevs.lib.tfgs.c1718.alex;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.Port;
 import xdevs.core.util.Constants;
 
-public class Transducer extends Atomic {
+public class TransducerMongo extends AtomicMongo {
 	
-	private static final Logger LOGGER = Logger.getLogger(Transducer.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(TransducerMongo.class.getName());
 	
-	protected Port<Integer> iArrived = new Port<>("iArrived");
-	protected Port<Integer> iSolved = new Port<>("iSolved");
-	protected Port<Boolean> oStop = new Port<>("oStop");
+	protected PortMongo<Integer> iArrived = new PortMongo<>("iArrived");
+	protected PortMongo<Integer> iSolved = new PortMongo<>("iSolved");
+	protected PortMongo<Boolean> oStop = new PortMongo<>("oStop");
 	
 	private HashMap<Integer,Double> jobs = new HashMap<Integer,Double>();
 	private double observationTime;
@@ -22,7 +20,7 @@ public class Transducer extends Atomic {
 	private double clock;
 	private double totalTa;
 	
-	public Transducer(String name, double observationTime){
+	public TransducerMongo(String name, double observationTime){
 		super(name);
 		super.addInPort(iArrived);
 		super.addInPort(iSolved);

@@ -1,17 +1,15 @@
 package xdevs.lib.tfgs.c1718.alex;
 
-import xdevs.core.modeling.Atomic;
-import xdevs.core.modeling.Port;
 import xdevs.core.util.Constants;
 
-public class Processor extends Atomic {
+public class ProcessorMongo extends AtomicMongo {
 	
-	protected Port<Integer> iIn = new Port<>("iIn");
-	protected Port<Integer> oOut = new Port<>("oOut");
+	protected PortMongo<Integer> iIn = new PortMongo<>("iIn");
+	protected PortMongo<Integer> oOut = new PortMongo<>("oOut");
 	private int currentJob = 0;
 	private double processingTime;
 	
-	public Processor(String name, double processingTime){
+	public ProcessorMongo(String name, double processingTime){
 		super(name);
 		super.addInPort(iIn);
 		super.addOutPort(oOut);

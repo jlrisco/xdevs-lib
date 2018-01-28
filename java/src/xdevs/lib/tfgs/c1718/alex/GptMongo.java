@@ -1,23 +1,21 @@
 package xdevs.lib.tfgs.c1718.alex;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.Port;
-import xdevs.core.simulation.Coordinator;
 import xdevs.core.util.DevsLogger;
 
-public class Gpt extends Coupled {
+public class GptMongo extends CoupledMongo {
 	
-	protected Port<Boolean> iStart = new Port<>("iStart");
+	protected PortMongo<Boolean> iStart = new PortMongo<>("iStart");
 	
-	public Gpt(String name, double period, double observationTime){
+	public GptMongo(String name, double period, double observationTime){
 		super(name);
 		super.addInPort(iStart);
 		
-		Generator generator = new Generator("generator", 3*period);
-		Processor processor = new Processor("processor", period);
-		Transducer transducer = new Transducer("trandsucer", observationTime);
+		GeneratorMongo generator = new GeneratorMongo("generator", 3*period);
+		ProcessorMongo processor = new ProcessorMongo("processor", period);
+		TransducerMongo transducer = new TransducerMongo("trandsucer", observationTime);
 		super.addComponent(generator);
 		super.addComponent(processor);
 		super.addComponent(transducer);
@@ -31,8 +29,9 @@ public class Gpt extends Coupled {
 	
 	public static void main(String args[]){
 		DevsLogger.setup(Level.FINER);
-		Gpt gpt = new Gpt("gpt",1,100);
-		Coordinator coordinator = new Coordinator(gpt);
+		Logger.getLogger("org.mongodb.driver").setLevel(Level.SEVERE);
+		GptMongo gpt = new GptMongo("gpt",1,100);
+		CoordinatorMongo coordinator = new CoordinatorMongo(gpt);
 		coordinator.initialize();
 		coordinator.simInject(gpt.iStart, true);
 		coordinator.simulate(Long.MAX_VALUE);

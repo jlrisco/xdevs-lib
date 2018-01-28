@@ -2,19 +2,16 @@ package xdevs.lib.tfgs.c1718.alex;
 
 import java.util.logging.Level;
 
-import xdevs.core.modeling.Coupled;
-import xdevs.core.modeling.Port;
-import xdevs.core.simulation.Coordinator;
 import xdevs.core.util.DevsLogger;
 
-public class Efp extends Coupled {
-	protected Port<Boolean> iStart = new Port<>("iStart");
+public class EfpMongo extends CoupledMongo {
+	protected PortMongo<Boolean> iStart = new PortMongo<>("iStart");
 	
-	public Efp (String name, double period, double observationTime) {
+	public EfpMongo (String name, double period, double observationTime) {
 		super(name);
 		super.addInPort(iStart);
-		Ef ef = new Ef("ef", period, observationTime);
-		Processor processor = new Processor("processor", period*2);
+		EfMongo ef = new EfMongo("ef", period, observationTime);
+		ProcessorMongo processor = new ProcessorMongo("processor", period*2);
 		super.addComponent(ef);
 		super.addComponent(processor);
 		
@@ -25,8 +22,8 @@ public class Efp extends Coupled {
 	
 	public static void main(String args[]){
 		DevsLogger.setup(Level.INFO);
-		Efp efp = new Efp("efp",1,100);
-		Coordinator coordinator = new Coordinator(efp);
+		EfpMongo efp = new EfpMongo("efp",1,100);
+		CoordinatorMongo coordinator = new CoordinatorMongo(efp);
 		coordinator.initialize();
 		coordinator.simInject(efp.iStart, true);
 		coordinator.simulate(Long.MAX_VALUE);
