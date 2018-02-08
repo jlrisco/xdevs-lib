@@ -6,36 +6,36 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 public class CoupledMongo extends ComponentMongo {
-	
-	private static final Logger LOGGER = Logger.getLogger(CoupledMongo.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(CoupledMongo.class.getName());
 
     // Coupled attributes
     protected LinkedList<ComponentMongo> components = new LinkedList<>();
     protected LinkedList<CouplingMongo<?>> ic = new LinkedList<>();
     protected LinkedList<CouplingMongo<?>> eic = new LinkedList<>();
     protected LinkedList<CouplingMongo<?>> eoc = new LinkedList<>();
-    
+
     public CoupledMongo(String name) {
         super(name);
     }
-    
+
     public CoupledMongo() {
         this(CoupledMongo.class.getSimpleName());
     }
-    
+
     @Override
     public void initialize() {
     }
-    
+
     @Override
     public void exit() {
     }
-    
+
     @Override
     public ComponentMongo getParent() {
         return parent;
     }
-    
+
     @Override
     public void setParent(ComponentMongo parent) {
         this.parent = parent;
@@ -44,13 +44,13 @@ public class CoupledMongo extends ComponentMongo {
     /**
      * This method add a connection to the DEVS component.
      *
-     * @param cFrom Component at the beginning of the connection
+     * @param cFrom      Component at the beginning of the connection
      * @param oPortIndex Index of the source port in cFrom, starting at 0
-     * @param cTo Component at the end of the connection
+     * @param cTo        Component at the end of the connection
      * @param iPortIndex Index of the destination port in cTo, starting at 0
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public void addCoupling(ComponentMongo cFrom, int oPortIndex, ComponentMongo cTo, int iPortIndex) {
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public void addCoupling(ComponentMongo cFrom, int oPortIndex, ComponentMongo cTo, int iPortIndex) {
         if (cFrom == this) { // EIC
             PortMongo portFrom = cFrom.inPorts.get(oPortIndex);
             PortMongo portTo = cTo.inPorts.get(iPortIndex);
@@ -70,17 +70,17 @@ public class CoupledMongo extends ComponentMongo {
     }
 
     /**
+     * @param cFrom Component at the beginning of the connection
+     * @param pFrom Port at the beginning of the connection
+     * @param cTo   Component at the end of the connection
+     * @param pTo   Port at the end of the connection
      * @deprecated This method add a connection to the DEVS component. This
      * method is deprecated because since the addition of the
      * <code>parent</code> attribute, both components <code>cFrom</code> and
      * <code>cTo</code> are no longer needed inside the Coupling class.
-     * @param cFrom Component at the beginning of the connection
-     * @param pFrom Port at the beginning of the connection
-     * @param cTo Component at the end of the connection
-     * @param pTo Port at the end of the connection
      */
     @SuppressWarnings("unchecked")
-	public void addCoupling(ComponentMongo cFrom, PortMongo<?> pFrom, ComponentMongo cTo, PortMongo<?> pTo) {
+    public void addCoupling(ComponentMongo cFrom, PortMongo<?> pFrom, ComponentMongo cTo, PortMongo<?> pTo) {
         @SuppressWarnings({"rawtypes"})
         CouplingMongo coupling = new CouplingMongo(pFrom, pTo);
         // Add to connections
@@ -92,7 +92,7 @@ public class CoupledMongo extends ComponentMongo {
             ic.add(coupling);
         }
     }
-    
+
     public final void addCoupling(String cFromName, String pFromName, String cToName, String pToName) {
         ComponentMongo cFrom = this.getComponentByName(cFromName);
         ComponentMongo cTo = this.getComponentByName(cToName);
@@ -105,7 +105,7 @@ public class CoupledMongo extends ComponentMongo {
             return;
         }
         PortMongo<?> pFrom;
-		PortMongo<?> pTo;
+        PortMongo<?> pTo;
         // Add to connections
         if (cFrom == this) {
             pFrom = cFrom.getInPort(pFromName);
@@ -132,10 +132,10 @@ public class CoupledMongo extends ComponentMongo {
      * This member adds a connection between ports pFrom and pTo
      *
      * @param pFrom Port at the beginning of the connection
-     * @param pTo Port at the end of the connection
+     * @param pTo   Port at the end of the connection
      */
     @SuppressWarnings("unchecked")
-	public void addCoupling(PortMongo<?> pFrom, PortMongo<?> pTo) {
+    public void addCoupling(PortMongo<?> pFrom, PortMongo<?> pTo) {
         @SuppressWarnings({"rawtypes"})
         CouplingMongo coupling = new CouplingMongo(pFrom, pTo);
         // Add to connections
@@ -147,7 +147,7 @@ public class CoupledMongo extends ComponentMongo {
             ic.add(coupling);
         }
     }
-    
+
     public Collection<ComponentMongo> getComponents() {
         return components;
     }
@@ -164,29 +164,29 @@ public class CoupledMongo extends ComponentMongo {
         if (this.name.equals(name)) {
             return this;
         }
-        
+
         for (ComponentMongo component : components) {
             if (component.name.equals(name)) {
                 return component;
             }
         }
-        
+
         return null;
     }
-    
+
     public final void addComponent(ComponentMongo component) {
         component.setParent(this);
         components.add(component);
     }
-    
+
     public LinkedList<CouplingMongo<?>> getIC() {
         return ic;
     }
-    
+
     public LinkedList<CouplingMongo<?>> getEIC() {
         return eic;
     }
-    
+
     public LinkedList<CouplingMongo<?>> getEOC() {
         return eoc;
     }
@@ -203,7 +203,7 @@ public class CoupledMongo extends ComponentMongo {
                 components.remove(i--);
             }
         }
-        
+
         if (parent == null) {
             return this;
         }
@@ -215,26 +215,26 @@ public class CoupledMongo extends ComponentMongo {
         // The same with the output ports
         HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> rightBridgeEOC = createRightBrige(((CoupledMongo) parent).getEOC());
         HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> rightBridgeIC = createRightBrige(((CoupledMongo) parent).getIC());
-        
+
         completeLeftBridge(eic, leftBridgeEIC, ((CoupledMongo) parent).getEIC());
         completeLeftBridge(eic, leftBridgeIC, ((CoupledMongo) parent).getIC());
         completeRightBridge(eoc, rightBridgeEOC, ((CoupledMongo) parent).getEOC());
         completeRightBridge(eoc, rightBridgeIC, ((CoupledMongo) parent).getIC());
-        
+
         for (ComponentMongo component : components) {
             ((CoupledMongo) parent).addComponent(component);
         }
-        
+
         for (CouplingMongo<?> cIC : ic) {
             ((CoupledMongo) parent).getIC().add(cIC);
         }
         return this;
     }
-    
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void completeLeftBridge(LinkedList<CouplingMongo<?>> couplings,
-            HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> leftBridge,
-            LinkedList<CouplingMongo<?>> pCouplings) {
+                                    HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> leftBridge,
+                                    LinkedList<CouplingMongo<?>> pCouplings) {
         for (CouplingMongo<?> c : couplings) {
             LinkedList<PortMongo<?>> list = leftBridge.get(c.portFrom);
             if (list != null) {
@@ -244,11 +244,11 @@ public class CoupledMongo extends ComponentMongo {
             }
         }
     }
-    
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void completeRightBridge(LinkedList<CouplingMongo<?>> couplings,
-            HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> rightBridge,
-            LinkedList<CouplingMongo<?>> pCouplings) {
+                                     HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> rightBridge,
+                                     LinkedList<CouplingMongo<?>> pCouplings) {
         for (CouplingMongo<?> c : couplings) {
             LinkedList<PortMongo<?>> list = rightBridge.get(c.portTo);
             if (list != null) {
@@ -258,7 +258,7 @@ public class CoupledMongo extends ComponentMongo {
             }
         }
     }
-    
+
     private HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> createLeftBrige(LinkedList<CouplingMongo<?>> couplings) {
         HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> leftBridge = new HashMap<>();
         for (PortMongo<?> iPort : this.inPorts) {
@@ -275,7 +275,7 @@ public class CoupledMongo extends ComponentMongo {
         }
         return leftBridge;
     }
-    
+
     private HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> createRightBrige(LinkedList<CouplingMongo<?>> couplings) {
         HashMap<PortMongo<?>, LinkedList<PortMongo<?>>> rightBridge = new HashMap<>();
         for (PortMongo<?> oPort : this.outPorts) {
@@ -292,7 +292,7 @@ public class CoupledMongo extends ComponentMongo {
         }
         return rightBridge;
     }
-    
+
     private void removePortsAndCouplings(ComponentMongo child) {
         Collection<PortMongo<?>> inPorts = child.getInPorts();
         for (PortMongo<?> iport : inPorts) {

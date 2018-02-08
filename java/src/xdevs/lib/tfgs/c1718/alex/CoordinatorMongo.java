@@ -9,8 +9,8 @@ import xdevs.core.util.Constants;
 import xdevs.core.util.Util;
 
 public class CoordinatorMongo extends AbstractSimulatorMongo {
-	
-	private static final Logger LOGGER = Logger.getLogger(CoordinatorMongo.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(CoordinatorMongo.class.getName());
 
     protected CoupledMongo model;
     protected LinkedList<AbstractSimulatorMongo> simulators = new LinkedList<>();
@@ -24,7 +24,7 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
             this.model = model;
         }
     }
-    
+
     public CoordinatorMongo(SimulationClock clock, CoupledMongo model) {
         this(clock, model, false);
     }
@@ -36,9 +36,9 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
     public CoordinatorMongo(CoupledMongo model) {
         this(model, true);
     }
-    
+
     protected void buildHierarchy() {
-          // Build hierarchy
+        // Build hierarchy
         Collection<ComponentMongo> components = model.getComponents();
         for (ComponentMongo component : components) {
             if (component instanceof CoupledMongo) {
@@ -140,12 +140,12 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
     /**
      * Injects a value into the PortMongo "PortMongo", calling the transition function.
      *
-     * @param e elapsed time
-     * @param port input PortMongo to inject the set of values
+     * @param e      elapsed time
+     * @param port   input PortMongo to inject the set of values
      * @param values set of values to inject
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-	public void simInject(double e, PortMongo port, Collection<Object> values) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void simInject(double e, PortMongo port, Collection<Object> values) {
         double time = tL + e;
         if (time <= tN) {
             port.addValues(values);
@@ -157,25 +157,25 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
     }
 
     /**
-     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection) 
-     * @param port input PortMongo to inject the set of values
+     * @param port   input PortMongo to inject the set of values
      * @param values set of values to inject
+     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection)
      */
     @SuppressWarnings("rawtypes")
-	public void simInject(PortMongo port, Collection<Object> values) {
+    public void simInject(PortMongo port, Collection<Object> values) {
         simInject(0.0, port, values);
     }
 
     /**
      * Injects a single value in the given input PortMongo with elapsed time e.
      *
-     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection) 
      * @param e
      * @param port
      * @param value
+     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection)
      */
     @SuppressWarnings("rawtypes")
-	public void simInject(double e, PortMongo port, Object value) {
+    public void simInject(double e, PortMongo port, Object value) {
         LinkedList<Object> values = new LinkedList<Object>();
         values.add(value);
         simInject(e, port, values);
@@ -185,12 +185,12 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
      * Injects a single value in the given input PortMongo with elapsed time e equal
      * to 0.
      *
-     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection) 
      * @param port
      * @param value
+     * @see xdevs.core.simulation.CoordinatorMongo#simInject(double, xdevs.core.modeling.PortMongo, java.util.Collection)
      */
     @SuppressWarnings("rawtypes")
-	public void simInject(PortMongo port, Object value) {
+    public void simInject(PortMongo port, Object value) {
         simInject(0.0, port, value);
     }
 
@@ -223,7 +223,7 @@ public class CoordinatorMongo extends AbstractSimulatorMongo {
     public CoupledMongo getModel() {
         return model;
     }
-    
+
     private static String printCouplings(CoupledMongo model) {
         StringBuilder sb = new StringBuilder(" coupling: [");
         sb.append(Util.printLinkedList("\n\tEIC", model.getEIC()));

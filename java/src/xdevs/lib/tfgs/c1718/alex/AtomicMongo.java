@@ -4,19 +4,19 @@ import xdevs.core.util.Constants;
 
 public abstract class AtomicMongo extends ComponentMongo {
 
-	// DevsAtomic attributes
+    // DevsAtomic attributes
     protected String phase = Constants.PHASE_PASSIVE;
     protected double sigma = Constants.INFINITY;
-    
-	public AtomicMongo(String name) {
-		super(name);
-	}
-	
-	public AtomicMongo() {
+
+    public AtomicMongo(String name) {
+        super(name);
+    }
+
+    public AtomicMongo() {
         this(AtomicMongo.class.getSimpleName());
     }
-	
-	// DevsAtomic methods
+
+    // DevsAtomic methods
     public double ta() {
         return sigma;
     }
