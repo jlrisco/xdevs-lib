@@ -1,0 +1,37 @@
+
+bench1_fibonacci.exe:     file format elf32-bigmips
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+   0:	27bdffe8 	addiu	sp,sp,-24
+   4:	afbe0010 	sw	s8,16(sp)
+   8:	03a0f021 	move	s8,sp
+   c:	afc00000 	sw	zero,0(s8)
+  10:	24020001 	li	v0,1
+  14:	afc20004 	sw	v0,4(s8)
+  18:	afc00008 	sw	zero,8(s8)
+  1c:	afc0000c 	sw	zero,12(s8)
+  20:	afc0000c 	sw	zero,12(s8)
+  24:	8fc2000c 	lw	v0,12(s8)
+  28:	28420020 	slti	v0,v0,32
+  2c:	1040000d 	beqz	v0,64 <main+0x64>
+  30:	00000000 	nop
+  34:	8fc30004 	lw	v1,4(s8)
+  38:	8fc20000 	lw	v0,0(s8)
+  3c:	00621021 	addu	v0,v1,v0
+  40:	afc20008 	sw	v0,8(s8)
+  44:	8fc20004 	lw	v0,4(s8)
+  48:	afc20000 	sw	v0,0(s8)
+  4c:	8fc20008 	lw	v0,8(s8)
+  50:	afc20004 	sw	v0,4(s8)
+  54:	8fc2000c 	lw	v0,12(s8)
+  58:	24420001 	addiu	v0,v0,1
+  5c:	08000009 	j	24 <main+0x24>
+  60:	afc2000c 	sw	v0,12(s8)
+  64:	00001021 	move	v0,zero
+  68:	03c0e821 	move	sp,s8
+  6c:	8fbe0010 	lw	s8,16(sp)
+  70:	03e00008 	jr	ra
+  74:	27bd0018 	addiu	sp,sp,24

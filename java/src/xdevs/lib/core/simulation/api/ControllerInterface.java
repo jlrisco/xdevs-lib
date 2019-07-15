@@ -20,7 +20,7 @@
  *  - José Luis Risco Martín <jlrisco@ucm.es>
  *  - Saurabh Mittal <smittal@duniptech.com>
  */
-package xdevs.lib.extension.simulation.api;
+package xdevs.lib.core.simulation.api;
 
 import java.util.Collection;
 import xdevs.core.modeling.Port;

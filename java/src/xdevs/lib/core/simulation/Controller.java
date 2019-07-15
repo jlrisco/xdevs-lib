@@ -20,7 +20,7 @@
  *  - José Luis Risco Martín <jlrisco@ucm.es>
  *  - Saurabh Mittal <smittal@duniptech.com>
  */
-package xdevs.lib.extension.simulation;
+package xdevs.lib.core.simulation;
 
 import java.util.Collection;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ import xdevs.core.modeling.Port;
 import xdevs.core.simulation.Coordinator;
 import xdevs.core.simulation.SimulationClock;
 import xdevs.core.util.Constants;
-import xdevs.lib.extension.simulation.api.ControllerInterface;
+import xdevs.lib.core.simulation.api.ControllerInterface;
 
 /**
  *
