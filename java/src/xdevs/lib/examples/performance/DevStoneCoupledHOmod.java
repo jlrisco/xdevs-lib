@@ -31,23 +31,23 @@ public class DevStoneCoupledHOmod extends DevStoneCoupled {
 
     public Port<Integer> iInAux = new Port<>("inAux");
 
-    public DevStoneCoupledHOmod(String prefix, int width, int depth, DevStoneProperties properties) {
+    public DevStoneCoupledHOmod(String prefix, int width, int depth, double preparationTime, double intDelayTime, double extDelayTime) {
         super(prefix + (depth - 1));
         super.addInPort(iInAux);
         if (depth == 1) {
-            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, properties);
+            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(atomic);
             super.addCoupling(iIn, atomic.iIn);
             super.addCoupling(atomic.oOut, oOut);
         } else {
-            DevStoneCoupledHOmod coupled = new DevStoneCoupledHOmod(prefix, width, depth - 1, properties);
+            DevStoneCoupledHOmod coupled = new DevStoneCoupledHOmod(prefix, width, depth - 1, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(coupled);
             super.addCoupling(iIn, coupled.iIn);
             super.addCoupling(coupled.oOut, oOut);
             // First layer of atomic models:
             ArrayList<DevStoneAtomic> prevLayer = new ArrayList<>();
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("AL1_" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("AL1_" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 super.addCoupling(iInAux, atomic.iIn);
                 super.addCoupling(atomic.oOut, coupled.iInAux);
@@ -56,7 +56,7 @@ public class DevStoneCoupledHOmod extends DevStoneCoupled {
             // Second layer of atomic models:
             ArrayList<DevStoneAtomic> currentLayer = new ArrayList<>();
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("AL2_" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("AL2_" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 if (i == 0) {
                     super.addCoupling(iInAux, atomic.iIn);
@@ -77,7 +77,7 @@ public class DevStoneCoupledHOmod extends DevStoneCoupled {
             int level = 3;
             while (prevLayer.size() > 1) {
                 for (int i = 0; i < prevLayer.size() - 1; ++i) {
-                    DevStoneAtomic atomic = new DevStoneAtomic("AL" + level + "_" + (i + 1) + "_" + name, properties);
+                    DevStoneAtomic atomic = new DevStoneAtomic("AL" + level + "_" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                     super.addComponent(atomic);
                     if (i == 0) {
                         super.addCoupling(iInAux, atomic.iIn);

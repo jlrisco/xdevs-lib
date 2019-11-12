@@ -31,23 +31,23 @@ public class DevStoneCoupledHOmem extends DevStoneCoupled {
 
     public Port<Integer> iInAux = new Port<>("inAux");
 
-    public DevStoneCoupledHOmem(String prefix, int width, int depth, DevStoneProperties properties) {
+    public DevStoneCoupledHOmem(String prefix, int width, int depth, double preparationTime, double intDelayTime, double extDelayTime) {
         super(prefix + (depth - 1));
         super.addInPort(iInAux);
         if (depth == 1) {
-            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, properties);
+            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(atomic);
             super.addCoupling(iIn, atomic.iIn);
             super.addCoupling(atomic.oOut, oOut);
         } else {
-            DevStoneCoupledHOmem coupled = new DevStoneCoupledHOmem(prefix, width, depth - 1, properties);
+            DevStoneCoupledHOmem coupled = new DevStoneCoupledHOmem(prefix, width, depth - 1, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(coupled);
             super.addCoupling(iIn, coupled.iIn);
             super.addCoupling(coupled.oOut, oOut);
             // First layer of atomic models:
             ArrayList<DevStoneAtomic> prevLayer = new ArrayList<>();
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("AL1_" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("AL1_" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 super.addCoupling(atomic.oOut, coupled.iInAux);
                 prevLayer.add(atomic);
@@ -55,7 +55,7 @@ public class DevStoneCoupledHOmem extends DevStoneCoupled {
             // Second layer of atomic models:
             ArrayList<DevStoneAtomic> currentLayer = new ArrayList<>();
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("AL2_" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("AL2_" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 super.addCoupling(iInAux, atomic.iIn);
                 currentLayer.add(atomic);

@@ -33,9 +33,7 @@ import xdevs.lib.util.Dhrystone;
  *
  */
 public class DevStoneAtomic extends Atomic {
-    
-    private static final Logger LOGGER = Logger.getLogger(DevStoneAtomic.class.getName());
-    
+      
     public Port<Integer> iIn = new Port<>("in");
     public Port<Integer> oOut = new Port<>("out");
     protected LinkedList<Integer> outValues = new LinkedList<>();
@@ -49,13 +47,13 @@ public class DevStoneAtomic extends Atomic {
     public static long NUM_DELT_EXTS = 0;
     public static long NUM_OF_EVENTS = 0;
     
-    public DevStoneAtomic(String name, DevStoneProperties properties) {
+    public DevStoneAtomic(String name, double preparationTime, double intDelayTime, double extDelayTime) {
         super(name);
         super.addInPort(iIn);
         super.addOutPort(oOut);
-        this.preparationTime = properties.getPropertyAsDouble(DevStoneProperties.PREPARATION_TIME);
-        this.intDelayTime = properties.getPropertyAsDouble(DevStoneProperties.INT_DELAY_TIME);
-        this.extDelayTime = properties.getPropertyAsDouble(DevStoneProperties.INT_DELAY_TIME);
+        this.preparationTime = preparationTime;
+        this.intDelayTime = intDelayTime;
+        this.extDelayTime = extDelayTime;
     }
     
     @Override

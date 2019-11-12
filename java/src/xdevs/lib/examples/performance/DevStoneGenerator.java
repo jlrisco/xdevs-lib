@@ -35,11 +35,11 @@ public class DevStoneGenerator extends Atomic {
     protected int counter = 1;
     protected int maxEvents = Integer.MAX_VALUE;
 
-    public DevStoneGenerator(String name, DevStoneProperties properties, int maxEvents) {
+    public DevStoneGenerator(String name, double preparationTime, double period, int maxEvents) {
         super(name);
         super.addOutPort(oOut);
-        this.preparationTime = properties.getPropertyAsDouble(DevStoneProperties.PREPARATION_TIME);
-        this.period = properties.getPropertyAsDouble(DevStoneProperties.GENERATOR_PERIOD);
+        this.preparationTime = preparationTime;
+        this.period = period;
         this.maxEvents = maxEvents;
     }
 

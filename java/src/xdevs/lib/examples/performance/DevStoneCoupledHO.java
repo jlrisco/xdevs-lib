@@ -19,7 +19,13 @@
  */
 package xdevs.lib.examples.performance;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import xdevs.core.modeling.Coupled;
 import xdevs.core.modeling.Port;
+import xdevs.core.simulation.Coordinator;
+import xdevs.core.simulation.parallel.CoordinatorParallel;
+import xdevs.core.util.DevsLogger;
 
 /**
  * Coupled model to study the performance HO DEVStone models
@@ -27,28 +33,30 @@ import xdevs.core.modeling.Port;
  * @author José Luis Risco Martín
  */
 public class DevStoneCoupledHO extends DevStoneCoupled {
+    
+    private static final Logger LOGGER = Logger.getLogger(DevStoneCoupledHO.class.getName());
 
     public Port<Integer> iInAux = new Port<>("inAux");
     public Port<Integer> oOutAux = new Port<>("outAux");
 
-    public DevStoneCoupledHO(String prefix, int width, int depth, DevStoneProperties properties) {
+    public DevStoneCoupledHO(String prefix, int width, int depth, double preparationTime, double intDelayTime, double extDelayTime) {
         super(prefix + (depth - 1));
         super.addInPort(iInAux);
         super.addOutPort(oOutAux);
         if (depth == 1) {
-            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, properties);
+            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(atomic);
             super.addCoupling(iIn, atomic.iIn);
             super.addCoupling(atomic.oOut, oOut);
         } else {
-            DevStoneCoupledHO coupled = new DevStoneCoupledHO(prefix, width, depth - 1, properties);
+            DevStoneCoupledHO coupled = new DevStoneCoupledHO(prefix, width, depth - 1, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(coupled);
             super.addCoupling(iIn, coupled.iIn);
             super.addCoupling(iIn, coupled.iInAux);
             super.addCoupling(coupled.oOut, oOut);
             DevStoneAtomic atomicPrev = null;
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("A" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("A" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 super.addCoupling(iInAux, atomic.iIn);
                 super.addCoupling(atomic.oOut, oOutAux);
@@ -74,5 +82,51 @@ public class DevStoneCoupledHO extends DevStoneCoupled {
     @Override
     public long getNumOfEvents(int maxEvents, int width, int depth) {
         return getNumDeltExts(maxEvents, width, depth);
+    }
+    
+    public static void main(String[] args) {
+        // Benchmark type and parameters
+        int width = 6;
+        int depth = 4;
+        double intDelayTime = 1.618;
+        double extDelayTime = 1.618;
+
+        // Generator parameters:
+        double preparationTime = 0.0;
+        double period = 1.0;
+        int maxEvents = 1;
+
+        // Atomic number of internal and external transitions, as well as number of events
+        DevStoneAtomic.NUM_DELT_INTS = 0;
+        DevStoneAtomic.NUM_DELT_EXTS = 0;
+        DevStoneAtomic.NUM_OF_EVENTS = 0;
+
+        Coupled framework = new Coupled(DevStoneCoupledHO.class.getSimpleName());
+        // Generator
+        DevStoneGenerator generator = new DevStoneGenerator("Generator", preparationTime, period, maxEvents);
+        framework.addComponent(generator);
+        // HO model
+        DevStoneCoupledHO stoneCoupled = new DevStoneCoupledHO("C", width, depth, preparationTime, intDelayTime, extDelayTime);        
+        LOGGER.info(stoneCoupled.toXML(0));
+        // In the following, stoneCoupled is flattened. The idea is to have a fair comparison between sequential, parallel and distributed models.
+        // Since parallel and distributed models are always flattened, we flatten also sequential executions
+        stoneCoupled = (DevStoneCoupledHO)stoneCoupled.flatten();
+        LOGGER.info(stoneCoupled.toXML(0));
+        framework.addComponent(stoneCoupled);
+        // Couplings
+        framework.addCoupling(generator.oOut, stoneCoupled.iIn);
+        framework.addCoupling(generator.oOut, stoneCoupled.iInAux);
+
+        Coordinator coordinator = new Coordinator(framework, false);
+        //CoordinatorParallel coordinator = new CoordinatorParallel(framework);
+        coordinator.initialize();
+        long start = System.currentTimeMillis();
+        DevsLogger.setup(Level.INFO);
+        coordinator.simulate(Long.MAX_VALUE);
+        long end = System.currentTimeMillis();
+        double time = (end - start) / 1000.0;
+        LOGGER.info("MAXEVENTS;WIDTH;DEPTH;NUM_DELT_INTS;NUM_DELT_EXTS;NUM_OF_EVENTS;TIME");
+        String stats = maxEvents + ";" + width + ";" + depth + ";" + DevStoneAtomic.NUM_DELT_INTS + ";" + DevStoneAtomic.NUM_DELT_EXTS + ";" + DevStoneAtomic.NUM_OF_EVENTS + ";" + time;
+        LOGGER.info(stats);        
     }
 }

@@ -63,6 +63,8 @@ public class Dhrystone {
     }
 
     public void run(double seconds) {
+        long begin_time = System.currentTimeMillis();
+
         int Int_Loc_1, Int_Loc_2, Int_Loc_3;
         int[] Int_Loc_3_Ref = new int[1];
         int[] Int_Loc_1_Ref = new int[1];
@@ -70,7 +72,6 @@ public class Dhrystone {
         int[] Enum_Loc = new int[1];
         String String_Loc_1, String_Loc_2;
 
-        long begin_time, end_time;
         long milliSeconds = Math.round(1000 * seconds);
 
         // int Run_Index; // , Meas_Index; <-- Variable not used (???)
@@ -85,8 +86,7 @@ public class Dhrystone {
 
         String_Loc_1 = "DHRYSTONE PROGRAM, 1'ST STRING";
 
-        begin_time = System.currentTimeMillis();
-        end_time = Long.MAX_VALUE;
+        long end_time = (milliSeconds<=0) ? Long.MAX_VALUE : System.currentTimeMillis();
         total_time = end_time - begin_time;
 
         for (Run_Index = 1; Run_Index <= Number_Of_Runs && total_time < milliSeconds; ++Run_Index) {
@@ -358,8 +358,8 @@ public class Dhrystone {
     }
 
     public static void main(String[] args) {
-        Dhrystone.execute(0.1, true);
-        Dhrystone.execute(0.1, true);
+        Dhrystone.execute(5, true);
+        Dhrystone.execute(4, true);
     }
 
 }

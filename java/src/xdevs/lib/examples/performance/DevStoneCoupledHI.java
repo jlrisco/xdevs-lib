@@ -26,21 +26,21 @@ package xdevs.lib.examples.performance;
  */
 public class DevStoneCoupledHI extends DevStoneCoupled {
 
-    public DevStoneCoupledHI(String prefix, int width, int depth, DevStoneProperties properties) {
+    public DevStoneCoupledHI(String prefix, int width, int depth, double preparationTime, double intDelayTime, double extDelayTime) {
         super(prefix + (depth - 1));
         if (depth == 1) {
-            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, properties);
+            DevStoneAtomic atomic = new DevStoneAtomic("A1_" + name, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(atomic);
             super.addCoupling(iIn, atomic.iIn);
             super.addCoupling(atomic.oOut, oOut);
         } else {
-            DevStoneCoupledHI coupled = new DevStoneCoupledHI(prefix, width, depth - 1, properties);
+            DevStoneCoupledHI coupled = new DevStoneCoupledHI(prefix, width, depth - 1, preparationTime, intDelayTime, extDelayTime);
             super.addComponent(coupled);
             super.addCoupling(iIn, coupled.iIn);
             super.addCoupling(coupled.oOut, oOut);
             DevStoneAtomic atomicPrev = null;
             for (int i = 0; i < (width - 1); ++i) {
-                DevStoneAtomic atomic = new DevStoneAtomic("A" + (i + 1) + "_" + name, properties);
+                DevStoneAtomic atomic = new DevStoneAtomic("A" + (i + 1) + "_" + name, preparationTime, intDelayTime, extDelayTime);
                 super.addComponent(atomic);
                 super.addCoupling(iIn, atomic.iIn);
                 if (atomicPrev != null) {
